@@ -5,4 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_main"
-    tools:context=".ui.MainActivity"/>
+    tools:context=".ui.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            style="@style/mainTitles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recomendados"
+            android:textColor="@color/white"
+            android:textColorHint="#FFFFFF"
+            android:textStyle="bold"></TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_recomendados"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="InvalidId,MissingConstraints"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

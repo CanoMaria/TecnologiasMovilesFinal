@@ -8,10 +8,13 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/drawable/edit_text_style.xml" value="0.1775" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.236" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/drawable/kurele_icon_background.xml" value="0.1815" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/drawable/recomendados_card_view.xml" value="0.1815" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1606425702811245" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout-w936dp/activity_login.xml" value="0.18510928961748635" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout/activity_main.xml" value="0.2033514492753623" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout/cardview_recomendados.xml" value="0.25" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/CanoMariaAyelenFinal/app/src/main/res/layout/recomend_card_view.xml" value="0.1875" />
       </map>
     </option>
   </component>

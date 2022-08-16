@@ -5,4 +5,8 @@
     <dimen name="edit_text_space">20dp</dimen>
     <dimen name="center_buttom">20dp</dimen>
     <dimen name="edit_text_height">50dp</dimen>
+    <dimen name="textItemSpace">10dp</dimen>
+    <dimen name="titleMovie">16sp</dimen>
+    <dimen name="descriptionMovie">12sp</dimen>
+    <dimen name="titleMain">30dp</dimen>
 </resources>
