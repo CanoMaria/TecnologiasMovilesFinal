@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.canomariaayelenfinal.R;
 
@@ -24,11 +25,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 openMainActivity();
                 Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_LONG).show();
+
             }
+
         });
     }
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
     }
 }

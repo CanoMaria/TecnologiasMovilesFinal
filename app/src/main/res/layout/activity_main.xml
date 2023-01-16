@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_main"
     tools:context=".ui.MainActivity">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
@@ -18,18 +20,41 @@
             style="@style/mainTitles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Nuevos"
+            android:textColor="@color/white"
+            android:textColorHint="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"></TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            >
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            style="@style/mainTitles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Recomendados"
             android:textColor="@color/white"
             android:textColorHint="#FFFFFF"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"></TextView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recomendados"
+        <GridView
+            android:id="@+id/grid_films"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="InvalidId,MissingConstraints"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="1dp" />
-    </LinearLayout>
+            android:layout_height="250dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp">
 
+        </GridView>
+    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
