@@ -8,23 +8,25 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
+
+import java.util.List;
 
 public class GridViewAdapter extends BaseAdapter {
     Context context;
-    String [] filmsName;
-    int [] image;
+    private List<Films> films;
 
     LayoutInflater inflater;
-    public GridViewAdapter(Context context, String[] filmsName, int[] image) {
+
+    public GridViewAdapter(List<Films> films,Context context) {
         this.context = context;
-        this.filmsName = filmsName;
-        this.image = image;
+        this.films = films;
     }
 
     @Override
     public int getCount() {
-        return filmsName.length;
+        return films.size();
     }
 
     @Override
@@ -43,13 +45,14 @@ public class GridViewAdapter extends BaseAdapter {
             inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(view == null)
             view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_recomendados,viewGroup,false);
-            //view= inflater.inflate(R.layout.cardview_recomendados,null);
 
         ImageView imageView = view.findViewById(R.id.imageItem);
         TextView textView = view.findViewById(R.id.titleItem);
 
-        imageView.setImageResource(image[i]);
-        textView.setText(filmsName[i]);
+        String url = "https://image.tmdb.org/t/p/w500"+ films.get(i).getPoster_path();
+        Glide.with(context).load(url).into(imageView);
+        textView.setText(films.get(i).getTitle());
+
         return view;
     }
 }

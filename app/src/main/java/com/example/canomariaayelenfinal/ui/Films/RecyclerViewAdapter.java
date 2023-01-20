@@ -1,5 +1,6 @@
 package com.example.canomariaayelenfinal.ui.Films;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerHolder> {
-    private List<Items> items;
+    private List<Films> films;
+    private Context mContext;
 
-    public RecyclerViewAdapter(List<Items> items) {
-        this.items = items;
+    public RecyclerViewAdapter(List<Films> films, Context mContext) {
+        this.films = films;
+        this.mContext = mContext;
     }
 
     @NonNull
@@ -28,27 +32,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerHolder holder, int position) {
-        Items item = items.get(position);
-        holder.imageItem.setImageResource(item.getImage());
-        holder.tvTitulo.setText(item.getTitle());
-       // holder.tvDescripcion.setText((item.getDescription()));
+        holder.title.setText(films.get(position).getTitle());
+        String url = "https://image.tmdb.org/t/p/w500"+ films.get(position).getPoster_path();
+        Glide.with(mContext).load(url).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return films.size();
     }
 
-    public static class RecyclerHolder extends RecyclerView.ViewHolder{
-        private ImageView imageItem;
-        private TextView tvTitulo;
-        private TextView tvDescripcion;
 
-        public RecyclerHolder(@NonNull View itemView){
+    public static class RecyclerHolder extends RecyclerView.ViewHolder{
+        TextView title;
+        ImageView image;
+
+        public RecyclerHolder(@NonNull View itemView) {
             super(itemView);
-            imageItem=itemView.findViewById(R.id.imageItem);
-            tvTitulo= itemView.findViewById(R.id.titleItem);
-            //tvDescripcion=itemView.findViewById(R.id.descriptionItem);
+            title = itemView.findViewById(R.id.titleItem);
+            image = itemView.findViewById(R.id.imageItem);
 
         }
     }

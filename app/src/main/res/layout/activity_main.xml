@@ -6,55 +6,53 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_main"
     tools:context=".ui.MainActivity">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
 
-        <TextView
-            style="@style/mainTitles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nuevos"
-            android:textColor="@color/white"
-            android:textColorHint="#FFFFFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"></TextView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_news"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
-        <TextView
-            style="@style/mainTitles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Recomendados"
-            android:textColor="@color/white"
-            android:textColorHint="#FFFFFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"></TextView>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
-        <GridView
-            android:id="@+id/grid_films"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp">
+            <TextView
+                style="@style/mainTitles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/popularTitle"
+                android:textColor="@color/white"
+                android:textColorHint="#FFFFFF"
+                android:textStyle="bold"></TextView>
 
-        </GridView>
-    </LinearLayout>
-    </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_news"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                style="@style/mainTitles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/recommended"
+                android:textColor="@color/white"
+                android:textColorHint="#FFFFFF"
+                android:textStyle="bold"></TextView>
+
+            <GridView
+                android:id="@+id/grid_films"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"
+                android:layout_marginBottom="10dp">
+            </GridView>
+        </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
