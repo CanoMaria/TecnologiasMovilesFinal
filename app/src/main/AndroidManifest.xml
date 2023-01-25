@@ -17,6 +17,9 @@
             android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.Films.DesciptionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.LoginActivity"
             android:exported="true"
             android:label="@string/app_name">

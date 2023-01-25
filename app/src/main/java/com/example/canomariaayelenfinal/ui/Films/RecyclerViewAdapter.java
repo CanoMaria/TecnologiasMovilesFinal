@@ -1,10 +1,12 @@
 package com.example.canomariaayelenfinal.ui.Films;
 
 import android.content.Context;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,9 +16,13 @@ import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerHolder>
+                                 implements View.OnClickListener{
     private List<Films> films;
     private Context mContext;
+
+    private View.OnClickListener listener;
+
 
     public RecyclerViewAdapter(List<Films> films, Context mContext) {
         this.films = films;
@@ -27,6 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public RecyclerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_recomendados,parent,false);
+        view.setOnClickListener(this);
         return new RecyclerHolder(view);
     }
 
@@ -34,12 +41,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerHolder holder, int position) {
         holder.title.setText(films.get(position).getTitle());
         String url = "https://image.tmdb.org/t/p/w500"+ films.get(position).getPoster_path();
+        films.get(position).setImageUrl(url);
         Glide.with(mContext).load(url).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
         return films.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(listener != null){
+            listener.onClick(view);
+        }
+    }
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
     }
 
 

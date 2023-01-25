@@ -4,13 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.canomariaayelenfinal.R;
 import com.example.canomariaayelenfinal.databinding.ActivityMainBinding;
+import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
 import com.example.canomariaayelenfinal.ui.Films.Films;
 import com.example.canomariaayelenfinal.ui.Films.GridViewAdapter;
 import com.example.canomariaayelenfinal.ui.Films.RecyclerViewAdapter;
@@ -27,7 +32,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -47,34 +51,21 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        /*//Cargamos data del RecyclerView
-        GetData getData1= new GetData();
-        getData1.execute("https://api.themoviedb.org/3/movie/popular?api_key=32032564978a1c288fa5874397c2a0bf&language=es-ES");
-
-
-        //Cargamos data del GridView
-        if( getData1.getStatus() == AsyncTask.Status.FINISHED){
-            GetData getData2= new GetData();
-            getData2.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=32032564978a1c288fa5874397c2a0bf&language=es_Es");
-        }*/
+        //Utiliza el executors para obtener los datos de forma asincrona
         Executor executor = Executors.newSingleThreadExecutor();
-        recyclerList = new ArrayList<>();
-        GetData task1 = new GetData();
-        task1.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/popular?api_key=32032564978a1c288fa5874397c2a0bf&language=es-ES");
 
+        //Creamos una lista para guardar las peliculas populares
+        recyclerList = new ArrayList<>();
+        GetData popularFilms = new GetData();
+        popularFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/popular?api_key=32032564978a1c288fa5874397c2a0bf&language=es-ES");
+
+        //Creamos una lista para guardar las peliculas recomendadas
         gridList = new ArrayList<>();
-        GetData task2 = new GetData();
-        task2.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/top_rated?api_key=32032564978a1c288fa5874397c2a0bf&language=es_Es");
+        GetData recomendedFilms = new GetData();
+        recomendedFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/top_rated?api_key=32032564978a1c288fa5874397c2a0bf&language=es-Es");
     }
 
-    /*
-        binding.gridFilms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this,"tu clikeaste "+ filmList.get(i).getTitle(),Toast.LENGTH_SHORT ).show();
-            }
-        });*/
+    //Funcion asincrona para obtener las peliculas
     public  class GetData extends AsyncTask<String,String,String> {
         String JSON_URL=null;
         protected String doInBackground(String... params) {
@@ -126,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
                     movie.setTitle (jsonObject1.getString("title"));
                     movie.setPoster_path (jsonObject1.getString("poster_path"));
+                    movie.setSynopsis(jsonObject1.getString("overview"));
+
                     Log.d("INFO", movie.getTitle());
                     if (JSON_URL.contains("popular")) {
                         recyclerList.add(movie);
@@ -149,19 +142,38 @@ public class MainActivity extends AppCompatActivity {
 
     private void putDataIntoRecyclerView(List<Films> filmList){
         //inicializamos el rv
-        rvPopularFilms=findViewById(R.id.rv_news);
+        rvPopularFilms=findViewById(R.id.rv_popular);
         //definimos que el recycles se vea horizontalmente
         rvPopularFilms.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvAdapter= new RecyclerViewAdapter(filmList,this);
+        rvAdapter= new RecyclerViewAdapter(filmList, this);
+        rvAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"tu clickeaste "+
+                        filmList.get(rvPopularFilms.getChildAdapterPosition(view)).getTitle(),Toast.LENGTH_SHORT).show();
+                moveToDescription(filmList.get(rvPopularFilms.getChildAdapterPosition(view)));
+            }
+        });
         rvPopularFilms.setAdapter(rvAdapter);
     }
-    private void putDataIntoGridView(List<Films> filmList){
-        //GridViewAdapter gridViewAdapter = new GridViewAdapter(filmList,this);
-        //binding.gridFilms.setAdapter(gridViewAdapter);
-        //inicializamos el rv
-        gvRecomendedFilms=findViewById(R.id.grid_films);
 
-        gvAdapter= new GridViewAdapter(filmList,this);
-        gvRecomendedFilms.setAdapter(gvAdapter);
+    private void moveToDescription(Films films) {
+        Intent intent = new Intent(this, DesciptionActivity.class);
+        intent.putExtra("Film",films);
+        startActivity(intent);
+    }
+
+
+    private void putDataIntoGridView(List<Films> filmList){
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(filmList,this);
+        binding.gridFilms.setAdapter(gridViewAdapter);
+
+        binding.gridFilms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this,"tu clikeaste "+ filmList.get(i).getTitle(),Toast.LENGTH_SHORT ).show();
+                moveToDescription(filmList.get(i));
+            }
+        });
     }
 }

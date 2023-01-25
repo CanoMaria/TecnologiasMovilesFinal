@@ -9,6 +9,7 @@
     <dimen name="titleMovie">16sp</dimen>
     <dimen name="descriptionMovie">12sp</dimen>
     <dimen name="titleMain">30dp</dimen>
+    <dimen name="descriptionText">15dp</dimen>
     <dimen name="film_name">20sp</dimen>
 
 </resources>
