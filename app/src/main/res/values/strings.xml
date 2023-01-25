@@ -11,4 +11,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="popularTitle">Mas Populares</string>
     <string name="recommended">Recomendados</string>
+    <string name="synopsis">Sinopsis</string>
+    <string name="description">Descripcion</string>
 </resources>

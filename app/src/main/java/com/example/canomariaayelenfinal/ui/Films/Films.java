@@ -1,6 +1,9 @@
 package com.example.canomariaayelenfinal.ui.Films;
 
-public class Films {
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class Films implements Serializable{
 
     private boolean adult;
     private String backdrop_path;
@@ -8,7 +11,7 @@ public class Films {
     private int id;
     private String original_language;
     private String original_title;
-    private String overview;
+    private String synopsis;
     private String popularity;
     private String poster_path;
     private String release_date;
@@ -17,30 +20,40 @@ public class Films {
     private double vote_average;
     private int vote_count;
 
-    public Films(boolean adult, String backdrop_path, int[] genre_ids, int id, String original_language,
-                 String original_title, String overview, String popularity, String poster_path, String release_date,
-                 String title, boolean video, double vote_average, int vote_count) {
+    private String imageUrl;
 
-        this.adult = adult;
-        this.backdrop_path = backdrop_path;
-        this.genre_ids = genre_ids;
-        this.id = id;
-        this.original_language = original_language;
-        this.original_title = original_title;
-        this.overview = overview;
-        this.popularity = popularity;
-        this.poster_path = poster_path;
-        this.release_date = release_date;
-        this.title = title;
-        this.video = video;
-        this.vote_average = vote_average;
-        this.vote_count = vote_count;
+    @Override
+    public String toString() {
+        return "Films{" +
+                "adult=" + adult +
+                ", backdrop_path='" + backdrop_path + '\'' +
+                ", genre_ids=" + Arrays.toString(genre_ids) +
+                ", id=" + id +
+                ", original_language='" + original_language + '\'' +
+                ", original_title='" + original_title + '\'' +
+                ", overview='" + synopsis + '\'' +
+                ", popularity='" + popularity + '\'' +
+                ", poster_path='" + poster_path + '\'' +
+                ", release_date='" + release_date + '\'' +
+                ", title='" + title + '\'' +
+                ", video=" + video +
+                ", vote_average=" + vote_average +
+                ", vote_count=" + vote_count +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 
     public Films() {
 
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
     public boolean isAdult() {
         return adult;
     }
@@ -89,12 +102,12 @@ public class Films {
         this.original_title = original_title;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public String getPopularity() {

@@ -51,6 +51,7 @@ public class GridViewAdapter extends BaseAdapter {
 
         String url = "https://image.tmdb.org/t/p/w500"+ films.get(i).getPoster_path();
         Glide.with(context).load(url).into(imageView);
+        films.get(i).setImageUrl(url);
         textView.setText(films.get(i).getTitle());
 
         return view;

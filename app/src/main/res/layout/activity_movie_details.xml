@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imageMovieDetail"
+                android:layout_width="199dp"
+                android:layout_height="194dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                tools:layout_editor_absoluteX="106dp"
+                tools:layout_editor_absoluteY="66dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                style="@style/mainTitles"
+                android:id="@+id/titleMovieDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Name"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="30dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/synopsis"
+                android:textColor="@color/white"
+                android:textColorHint="#FFFFFF"
+                android:textSize="25dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/descriptionMovieDetail"
+                style="@style/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:text="Descripcion"
+                android:textColor="@color/white"
+                ></TextView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

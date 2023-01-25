@@ -19,4 +19,9 @@
         <item name="android:textSize">@dimen/titleMain</item>
         <item name="android:layout_marginLeft">@dimen/textItemSpace</item>
     </style>
+    <style name="descriptionText" parent="Theme.MaterialComponents">
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textSize">@dimen/descriptionText</item>
+        <item name="android:layout_marginLeft">@dimen/textItemSpace</item>
+    </style>
 </resources>
