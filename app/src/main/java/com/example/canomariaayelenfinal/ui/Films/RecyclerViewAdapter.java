@@ -40,7 +40,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerHolder holder, int position) {
         holder.title.setText(films.get(position).getTitle());
-        String url = "https://image.tmdb.org/t/p/w500"+ films.get(position).getPoster_path();
+        //String url = "https://image.tmdb.org/t/p/w500"+ films.get(position).getPoster_path();
+        String url = films.get(position).getImageUrl();
         films.get(position).setImageUrl(url);
         Glide.with(mContext).load(url).into(holder.image);
     }

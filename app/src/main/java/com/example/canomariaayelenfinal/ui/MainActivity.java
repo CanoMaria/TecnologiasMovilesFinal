@@ -1,10 +1,16 @@
 package com.example.canomariaayelenfinal.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.canomariaayelenfinal.R;
 import com.example.canomariaayelenfinal.databinding.ActivityMainBinding;
+import com.example.canomariaayelenfinal.ui.Database.FilmDAO;
 import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
 import com.example.canomariaayelenfinal.ui.Films.Films;
 import com.example.canomariaayelenfinal.ui.Films.GridViewAdapter;
@@ -37,33 +44,70 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView rvPopularFilms;
-    private GridView gvRecomendedFilms;
     private RecyclerViewAdapter rvAdapter;
-    private GridViewAdapter gvAdapter;
     ActivityMainBinding binding;
     List <Films>recyclerList;
     List <Films>gridList;
+    FilmDAO filmDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        filmDAO = new FilmDAO(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //Utiliza el executors para obtener los datos de forma asincrona
-        Executor executor = Executors.newSingleThreadExecutor();
+        //Levantamos los datos de la BD
+        List <Films>recyclerListFromDB= filmDAO.getFilms("popular");
+        if (!recyclerListFromDB.isEmpty())
+            putDataIntoRecyclerView(recyclerListFromDB);
 
-        //Creamos una lista para guardar las peliculas populares
-        recyclerList = new ArrayList<>();
-        GetData popularFilms = new GetData();
-        popularFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/popular?api_key=32032564978a1c288fa5874397c2a0bf&language=es-ES");
+        List <Films>gridListFromDB= filmDAO.getFilms("recomendados");
+        if (!gridListFromDB.isEmpty())
+            putDataIntoGridView(gridListFromDB);
 
-        //Creamos una lista para guardar las peliculas recomendadas
-        gridList = new ArrayList<>();
-        GetData recomendedFilms = new GetData();
-        recomendedFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/top_rated?api_key=32032564978a1c288fa5874397c2a0bf&language=es-Es");
+        if (!isOnline(this)) {
+            showNoInternetDialog(this);
+        }else{
+            filmDAO.cleanTable();
+            //Utiliza el executors para obtener los datos de forma asincrona
+            Executor executor = Executors.newSingleThreadExecutor();
+
+            //Creamos una lista para guardar las peliculas populares
+            recyclerList = new ArrayList<>();
+            GetData popularFilms = new GetData();
+            popularFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/popular?api_key=32032564978a1c288fa5874397c2a0bf&language=es-ES");
+
+            //Creamos una lista para guardar las peliculas recomendadas
+            gridList = new ArrayList<>();
+            GetData recomendedFilms = new GetData();
+            recomendedFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/movie/top_rated?api_key=32032564978a1c288fa5874397c2a0bf&language=es-Es");
+        }
     }
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
+    public static void showNoInternetDialog(Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Sin conexión a Internet");
+        builder.setMessage("No tienes conexión a Internet");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+              public void onClick(DialogInterface dialog, int which) {
+                  dialog.dismiss();
+                  ((Activity) context).finish();
+              }
+        });
+        builder.show();
+
+    }
+
 
     //Funcion asincrona para obtener las peliculas
     public  class GetData extends AsyncTask<String,String,String> {
@@ -110,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
 
+                //limpiamos la bd para cargar los nuevos resultados
+
                 for (int i = 0 ; i< jsonArray.length(); i++){
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
@@ -117,12 +163,15 @@ public class MainActivity extends AppCompatActivity {
 
                     movie.setTitle (jsonObject1.getString("title"));
                     movie.setPoster_path (jsonObject1.getString("poster_path"));
+                    movie.setImageUrl("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
                     movie.setSynopsis(jsonObject1.getString("overview"));
 
                     Log.d("INFO", movie.getTitle());
                     if (JSON_URL.contains("popular")) {
+                        filmDAO.insertFilm(movie,"popular");
                         recyclerList.add(movie);
                     } else {
+                        filmDAO.insertFilm(movie,"recomendados");
                         gridList.add(movie);
                     }
                 }
