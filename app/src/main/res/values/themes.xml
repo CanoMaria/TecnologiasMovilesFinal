@@ -24,4 +24,7 @@
         <item name="android:textSize">@dimen/descriptionText</item>
         <item name="android:layout_marginLeft">@dimen/textItemSpace</item>
     </style>
+
+
+
 </resources>

@@ -13,4 +13,11 @@
     <string name="recommended">Recomendados</string>
     <string name="synopsis">Sinopsis</string>
     <string name="description">Descripcion</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="registerNow">Registrate Ahora</string>
+    <string name="nameRegister">Nombre</string>
+    <string name="surnameRegister">Apellido</string>
+    <string name="emailRegister">Email</string>
+    <string name="passRegister">Contraseña</string>
+    <string name="userRegister">Usuario</string>
 </resources>
