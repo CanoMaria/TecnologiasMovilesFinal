@@ -19,8 +19,9 @@ public class Films implements Serializable{
     private boolean video;
     private double vote_average;
     private int vote_count;
-
     private String imageUrl;
+
+    private boolean is_favourite;
 
     @Override
     public String toString() {
@@ -31,7 +32,7 @@ public class Films implements Serializable{
                 ", id=" + id +
                 ", original_language='" + original_language + '\'' +
                 ", original_title='" + original_title + '\'' +
-                ", overview='" + synopsis + '\'' +
+                ", synopsis='" + synopsis + '\'' +
                 ", popularity='" + popularity + '\'' +
                 ", poster_path='" + poster_path + '\'' +
                 ", release_date='" + release_date + '\'' +
@@ -40,11 +41,20 @@ public class Films implements Serializable{
                 ", vote_average=" + vote_average +
                 ", vote_count=" + vote_count +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", is_favourite=" + is_favourite +
                 '}';
     }
 
     public Films() {
 
+    }
+
+    public boolean getIs_favourite() {
+        return is_favourite;
+    }
+
+    public void setIs_favourite(boolean is_favourite) {
+        this.is_favourite = is_favourite;
     }
 
     public String getImageUrl() {

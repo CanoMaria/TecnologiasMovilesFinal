@@ -5,6 +5,15 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="com.example.canomariaayelenfinal.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.example.canomariaayelenfinal.permission.C2D_MESSAGE" />
+
+
+
 
     <application
         android:allowBackup="true"
@@ -16,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CanoMariaAyelenFinal"
         tools:targetApi="31">
+        <receiver android:name=".ui.Notifications.NotificationReceiver" />
+
+
 
         <activity
             android:name=".ui.RegisterActivity"
@@ -33,7 +45,6 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

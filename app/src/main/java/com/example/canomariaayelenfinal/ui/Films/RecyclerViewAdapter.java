@@ -1,19 +1,19 @@
 package com.example.canomariaayelenfinal.ui.Films;
 
 import android.content.Context;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
+
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerHolder>
@@ -24,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private View.OnClickListener listener;
 
 
-    public RecyclerViewAdapter(List<Films> films, Context mContext) {
+    public RecyclerViewAdapter(List<Films> films, FragmentActivity mContext) {
         this.films = films;
         this.mContext = mContext;
     }

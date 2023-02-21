@@ -60,6 +60,14 @@
                 android:text="Descripcion"
                 android:textColor="@color/white"
                 ></TextView>
+
+            <Button
+                android:id="@+id/addToFavourites_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                 />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
