@@ -39,4 +39,10 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="add_to_favourites">Agregar a favoritos</string>
     <string name="remove_to_favorites">Quitar de Favoritos</string>
+    <string name="settings">Configuracion</string>
+    <string name="search">Buscar</string>
+    <string name="select_genres">Seleccione Genero</string>
+    <string name="select_order">Ordenar por ...</string>
+    <string name="most_popular">Mas popular</string>
+    <string name="most_recent">Mas Reciente</string>
 </resources>

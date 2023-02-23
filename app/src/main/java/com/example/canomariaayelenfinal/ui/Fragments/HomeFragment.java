@@ -26,6 +26,7 @@ import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
 import com.example.canomariaayelenfinal.ui.Films.Films;
 import com.example.canomariaayelenfinal.ui.Films.GridViewAdapter;
 import com.example.canomariaayelenfinal.ui.Films.RecyclerViewAdapter;
+import com.example.canomariaayelenfinal.ui.URLDataFetcher;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,40 +118,11 @@ public class HomeFragment extends Fragment {
     //Funcion asincrona para obtener las peliculas
     public  class GetData extends AsyncTask<String,String,String> {
         String JSON_URL=null;
+
         protected String doInBackground(String... params) {
-            JSON_URL = params[0]; // obtiene la URL pasada como parámetro
-            String current = "";
-            try {
-                URL url;
-                HttpURLConnection urlConnection = null;
-                try {
-                    url = new URL(JSON_URL);
-                    urlConnection = (HttpURLConnection) url.openConnection();
-
-                    InputStream is = urlConnection.getInputStream();
-                    InputStreamReader isr = new InputStreamReader(is);
-
-                    int data = isr.read();
-                    while(data != -1){
-                        current +=(char) data;
-                        data = isr.read();
-                    }
-                    return current;
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }finally {
-                    if(urlConnection != null){
-                        urlConnection.disconnect();
-                    }
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return current;
+            JSON_URL = params[0]; // Obtiene la URL pasada como parámetro
+            URLDataFetcher urlDataFetcher = new URLDataFetcher();
+            return urlDataFetcher.fetchData(JSON_URL);
         }
 
         protected void onPostExecute(String s) {
