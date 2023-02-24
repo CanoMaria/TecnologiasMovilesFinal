@@ -32,8 +32,8 @@ public class FavoritesDAO {
         film = new Films();
     }
     public boolean isFavorite(int id){
-        String s = "SELECT COUNT(*) FROM favorites WHERE id = ?";
-        String[] params = { String.valueOf(id) };
+        String s = "SELECT COUNT(*) FROM favorites WHERE id = ? and user_id= ?";
+        String[] params = { String.valueOf(id),String.valueOf(user_id) };
         Cursor cursor = sql.rawQuery(s, params);
         cursor.moveToFirst(); // mover el cursor a la primera fila
         int count = cursor.getInt(0);
