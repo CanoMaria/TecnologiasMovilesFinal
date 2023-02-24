@@ -1,13 +1,16 @@
 package com.example.canomariaayelenfinal.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.canomariaayelenfinal.business.Users.Users;
+import com.example.canomariaayelenfinal.model.Films;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     Context context;
@@ -64,6 +67,15 @@ public class UserDAO {
             cursor.close();
             return false;
         }
+    }
+    @SuppressLint("Range")
+    public int getUseIdrByUsername(String username){
+        Cursor cursor = sql.rawQuery("SELECT * FROM users WHERE username = ?", new String[] {username});
+        int user_id=-1;
+        cursor.moveToNext();
+        user_id=cursor.getInt(cursor.getColumnIndex("id"));
+        cursor.close();
+        return user_id;
     }
 
 }
