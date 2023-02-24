@@ -45,4 +45,5 @@
     <string name="select_order">Ordenar por ...</string>
     <string name="most_popular">Mas popular</string>
     <string name="most_recent">Mas Reciente</string>
+    <string name="prompt_username">Usuario</string>
 </resources>

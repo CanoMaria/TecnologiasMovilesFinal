@@ -33,6 +33,7 @@ import com.example.canomariaayelenfinal.adapter.RecyclerViewAdapter;
 import com.example.canomariaayelenfinal.rest.Constantes;
 import com.example.canomariaayelenfinal.rest.URLDataFetcher;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,6 +68,8 @@ public class HomeFragment extends Fragment {
         loadDataFromDB();
         return view;
     }
+
+
     private void loadDataFromDB() {
         //Levantamos los datos de la BD
         List<Films> recyclerListFromDB= filmDAO.getFilmsByType("popular");

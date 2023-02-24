@@ -17,8 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
 import com.example.canomariaayelenfinal.DAO.FavoritesDAO;
-import com.example.canomariaayelenfinal.business.MainActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.canomariaayelenfinal.MainActivity;
 
 public class DesciptionActivity extends AppCompatActivity {
     TextView nameFilm;

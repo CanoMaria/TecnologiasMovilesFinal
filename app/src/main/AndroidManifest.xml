@@ -12,9 +12,6 @@
     <permission android:name="com.example.canomariaayelenfinal.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="com.example.canomariaayelenfinal.permission.C2D_MESSAGE" />
 
-
-
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,14 +25,21 @@
         <receiver android:name=".business.Notifications.NotificationReceiver" />
 
 
-
         <activity
             android:name=".business.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".business.MainActivity"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.example.canomariaayelenfinal" android:host="callback" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".model.DesciptionActivity"
             android:exported="false" />

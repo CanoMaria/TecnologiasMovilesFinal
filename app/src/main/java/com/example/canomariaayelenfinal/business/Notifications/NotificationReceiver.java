@@ -11,7 +11,7 @@ import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.business.MainActivity;
+import com.example.canomariaayelenfinal.MainActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
