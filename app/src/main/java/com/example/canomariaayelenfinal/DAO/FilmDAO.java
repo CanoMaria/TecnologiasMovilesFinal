@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui.Database;
+package com.example.canomariaayelenfinal.DAO;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.canomariaayelenfinal.ui.Films.Films;
+import com.example.canomariaayelenfinal.model.Films;
 
 import java.util.ArrayList;
 import java.util.List;

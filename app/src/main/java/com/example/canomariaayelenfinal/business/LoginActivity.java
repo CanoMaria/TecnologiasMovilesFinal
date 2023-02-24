@@ -1,7 +1,8 @@
-package com.example.canomariaayelenfinal.ui;
+package com.example.canomariaayelenfinal.business;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,15 +10,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.preference.PreferenceManager;
 
+import com.example.canomariaayelenfinal.MainActivity;
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.Database.UserDAO;
-import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
+import com.example.canomariaayelenfinal.DAO.UserDAO;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
+
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
@@ -25,6 +27,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         btnLogin= findViewById(R.id.loginButton);
         UserDAO userDAO = new UserDAO(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -34,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 TextInputLayout usernameLayout = findViewById(R.id.username);
                 TextInputLayout passLayout = findViewById(R.id.password);
 
+
                 //Seteamos en nulo
                 usernameLayout.setError(null);
                 passLayout.setError(null);
@@ -41,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 //Obtenemos el editText de los layaout
                 EditText user=usernameLayout.getEditText();
                 EditText pass=passLayout.getEditText();
+                //Agregamos el user al shared preference
+                editor.putString("user", user.getText().toString());
 
                 //En caso de que los campos esten vacios llevamos a registro
                 if(user.getText().toString().trim().isEmpty() && pass.getText().toString().trim().isEmpty()){
@@ -54,15 +63,15 @@ public class LoginActivity extends AppCompatActivity {
                     usernameLayout.setError("Los datos ingresados no son validos");
                     passLayout.setError("Los datos ingresados no son validos");
                 }
-
-
             }
 
         });
     }
+
+
+
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
     }
 }

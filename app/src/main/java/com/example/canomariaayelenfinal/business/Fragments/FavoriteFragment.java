@@ -1,10 +1,7 @@
-package com.example.canomariaayelenfinal.ui.Fragments;
-
-import static android.content.ContentValues.TAG;
+package com.example.canomariaayelenfinal.business.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +11,10 @@ import android.widget.GridView;
 import androidx.fragment.app.Fragment;
 
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.Database.FavoritesDAO;
-import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
-import com.example.canomariaayelenfinal.ui.Films.Films;
-import com.example.canomariaayelenfinal.ui.Films.GridViewAdapter;
+import com.example.canomariaayelenfinal.DAO.FavoritesDAO;
+import com.example.canomariaayelenfinal.model.DesciptionActivity;
+import com.example.canomariaayelenfinal.model.Films;
+import com.example.canomariaayelenfinal.adapter.GridViewAdapter;
 
 import java.util.List;
 
@@ -56,7 +53,7 @@ public class FavoriteFragment extends Fragment {
     }
     private void moveToDescription(Films films) {
         Intent intent = new Intent(getActivity(), DesciptionActivity.class);
-        intent.putExtra("Film",films);
+        intent.putExtra("FilmDescription",films);
         startActivity(intent);
     }
 }

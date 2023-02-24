@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui.Films;
+package com.example.canomariaayelenfinal.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
+import com.example.canomariaayelenfinal.model.Films;
 
 import java.util.List;
 

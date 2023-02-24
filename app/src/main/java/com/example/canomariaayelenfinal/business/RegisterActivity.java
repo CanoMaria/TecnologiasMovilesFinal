@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui;
+package com.example.canomariaayelenfinal.business;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.Database.UserDAO;
-import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
-import com.example.canomariaayelenfinal.ui.Users.Users;
+import com.example.canomariaayelenfinal.DAO.UserDAO;
+import com.example.canomariaayelenfinal.business.Users.Users;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
