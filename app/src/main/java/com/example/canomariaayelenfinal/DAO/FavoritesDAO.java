@@ -19,13 +19,16 @@ public class FavoritesDAO {
     Films film;
     SQLiteDatabase sql;
     String db = "FavoritesDB";
+    int user_id;
 
-    public FavoritesDAO(FragmentActivity context) {
+    public FavoritesDAO(FragmentActivity context,int user_id) {
         this.context = context;
+        this.user_id=user_id;
+
         //comando para abrir o crear bd
         sql = context.openOrCreateDatabase(db, context.MODE_PRIVATE, null);
         //sql.execSQL("DROP TABLE IF EXISTS favorites");
-        sql.execSQL("create table if not exists favorites (id integer,title text,image_link text, description text,is_favorite boolean default 0 )");
+        sql.execSQL("create table if not exists favorites (id integer,title text,image_link text, description text,is_favorite boolean default 0,user_id integer )");
         film = new Films();
     }
     public boolean isFavorite(int id){
@@ -46,15 +49,16 @@ public class FavoritesDAO {
         contentValues.put("image_link", film.getImageUrl());
         contentValues.put("description", film.getSynopsis());
         contentValues.put("is_favorite", 1);
+        contentValues.put("user_id", user_id);
 
         return (sql.insert("favorites", null, contentValues) > 0);
     }
     public boolean removeFavoriteFilm(int id) {
-        return (sql.delete("favorites", "id=?", new String[] { String.valueOf(id) }) > 0);
+        return (sql.delete("favorites", "id=? and user_id=?", new String[] { String.valueOf(id),String.valueOf(user_id) }) > 0);
     }
     @SuppressLint("Range")
     public List<Films> getAllFilms(){
-        Cursor cursor = sql.rawQuery("SELECT * FROM favorites", null);
+        Cursor cursor = sql.rawQuery("SELECT * FROM favorites where user_id=?", new String[] { String.valueOf(user_id) });
         List<Films> filmsList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
