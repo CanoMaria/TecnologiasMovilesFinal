@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui.Users;
+package com.example.canomariaayelenfinal.business.Users;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui.Films;
+package com.example.canomariaayelenfinal.model;
 
 
 import static android.content.ContentValues.TAG;
@@ -13,13 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.Database.FavoritesDAO;
-import com.example.canomariaayelenfinal.ui.Fragments.FavoriteFragment;
-import com.example.canomariaayelenfinal.ui.MainActivity;
+import com.example.canomariaayelenfinal.DAO.FavoritesDAO;
+import com.example.canomariaayelenfinal.business.MainActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DesciptionActivity extends AppCompatActivity {
     TextView nameFilm;
@@ -35,8 +34,14 @@ public class DesciptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         favoritesDAO = new FavoritesDAO(this);
         context = this;
-        film = (Films) getIntent().getSerializableExtra("Film");
-        Log.d(TAG, "ID: ."+ film.getId());
+
+
+        film = getIntent().getParcelableExtra("FilmDescription");
+
+        Log.d(TAG, "FILM: "+ film);
+        Log.d(TAG, "ID: "+ film.getId());
+
+
 
         //Cargamos la pagina
         loadMovieDetails();
@@ -57,6 +62,10 @@ public class DesciptionActivity extends AppCompatActivity {
                     film.setIs_favourite(false);
                     if(favoritesDAO.removeFavoriteFilm(film.getId())){
                         addToFavourites_btn.setText(R.string.add_to_favourites);
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.putExtra("fragment_to_load", "favorites");
+                        startActivity(intent);
+
                     }
                 }
             });
@@ -80,7 +89,6 @@ public class DesciptionActivity extends AppCompatActivity {
         nameFilm=findViewById(R.id.titleMovieDetail);
         imageFilm=findViewById(R.id.imageMovieDetail);
         descriptionFilm=findViewById(R.id.descriptionMovieDetail);
-
 
         //Seteamos los valores
         nameFilm.setText(film.getTitle());

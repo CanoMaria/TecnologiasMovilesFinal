@@ -1,11 +1,11 @@
-package com.example.canomariaayelenfinal.ui.Database;
+package com.example.canomariaayelenfinal.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.canomariaayelenfinal.ui.Users.Users;
+import com.example.canomariaayelenfinal.business.Users.Users;
 
 import java.util.ArrayList;
 
@@ -21,6 +21,7 @@ public class UserDAO {
         this.context = context;
         //comando para abrir o crear bd
         sql= context.openOrCreateDatabase(db,context.MODE_PRIVATE,null);
+        //sql.execSQL("DROP TABLE IF EXISTS users");
         sql.execSQL("create table if not exists users (id integer primary key autoincrement,email text,username text, password text, name text, surname text)");
         user=new Users();
     }

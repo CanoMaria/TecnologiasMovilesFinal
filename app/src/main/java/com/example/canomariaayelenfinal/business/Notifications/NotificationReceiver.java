@@ -1,19 +1,17 @@
-package com.example.canomariaayelenfinal.ui.Notifications;
+package com.example.canomariaayelenfinal.business.Notifications;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.MainActivity;
+import com.example.canomariaayelenfinal.business.MainActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 

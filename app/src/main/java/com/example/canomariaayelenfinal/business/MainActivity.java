@@ -1,10 +1,9 @@
-package com.example.canomariaayelenfinal.ui;
+package com.example.canomariaayelenfinal.business;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -21,10 +20,10 @@ import android.view.MenuItem;
 
 import com.example.canomariaayelenfinal.R;
 import com.example.canomariaayelenfinal.databinding.ActivityMainBinding;
-import com.example.canomariaayelenfinal.ui.Fragments.FavoriteFragment;
-import com.example.canomariaayelenfinal.ui.Fragments.HomeFragment;
-import com.example.canomariaayelenfinal.ui.Notifications.NotificationReceiver;
-import com.example.canomariaayelenfinal.ui.Fragments.SettingsFragment;
+import com.example.canomariaayelenfinal.business.Fragments.FavoriteFragment;
+import com.example.canomariaayelenfinal.business.Fragments.HomeFragment;
+import com.example.canomariaayelenfinal.business.Notifications.NotificationReceiver;
+import com.example.canomariaayelenfinal.business.Fragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        menu = findViewById(R.id.menu);
 
 
         //Creamos un canal y definimos las notificaciones
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createMenu() {
-        menu = findViewById(R.id.menu);
 
         menu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -112,6 +110,5 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
     }
-
 
 }

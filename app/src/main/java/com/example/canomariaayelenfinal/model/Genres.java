@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui.Films;
+package com.example.canomariaayelenfinal.model;
 
 import java.io.Serializable;
 

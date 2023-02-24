@@ -1,33 +1,43 @@
-package com.example.canomariaayelenfinal.ui.Fragments;
+package com.example.canomariaayelenfinal.business.Fragments;
 
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
+
 
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.Films.Genres;
-import com.example.canomariaayelenfinal.ui.URLDataFetcher;
+import com.example.canomariaayelenfinal.adapter.GridViewAdapter;
+
+import com.example.canomariaayelenfinal.model.DesciptionActivity;
+import com.example.canomariaayelenfinal.model.Films;
+import com.example.canomariaayelenfinal.model.Genres;
+import com.example.canomariaayelenfinal.rest.Constantes;
+import com.example.canomariaayelenfinal.rest.URLDataFetcher;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -40,6 +50,7 @@ public class SettingsFragment extends Fragment {
     View view;
     Spinner spnGenero;
     Spinner spnParametro;
+    BottomNavigationView menu;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings, container, false);
@@ -84,6 +95,23 @@ public class SettingsFragment extends Fragment {
     }
 
     private void loadFilms() {
+        //Obtenemos el id del genero que queremos
+        int genreId = getIdFromTitle(genresOptions, genreSelected);
+
+        //Mapeamos el orden
+        final String MOST_POPULAR = getString(R.string.most_popular);
+        final String MOST_RECENT = getString(R.string.most_recent);
+        String filter="";
+        if (orderSelected.equals(MOST_POPULAR)) {
+            filter="popularity.desc";
+        } else if (orderSelected.equals(MOST_RECENT)) {
+            filter="release_date.desc";
+        }
+
+        GetFilmsWithFilters getFilmsWithFilters = new GetFilmsWithFilters();
+        Executor executor = Executors.newSingleThreadExecutor();
+        String url= Constantes.URL_FILTER +"&sort_by="+filter+"&page=1&with_genres="+genreId;
+        getFilmsWithFilters.executeOnExecutor(executor,url);
     }
 
     public static int getIdFromTitle(List<Genres> genresList, String title) {
@@ -96,11 +124,58 @@ public class SettingsFragment extends Fragment {
         return -1;
     }
 
+    public  class GetFilmsWithFilters extends AsyncTask<String,String,String> {
+        String JSON_URL=null;
+
+        protected String doInBackground(String... params) {
+            String JSON_URL = params[0]; // Obtiene la URL pasada como parámetro
+            URLDataFetcher urlDataFetcher = new URLDataFetcher();
+            return urlDataFetcher.fetchData(JSON_URL);
+        }
+        protected void onPostExecute(String s) {
+
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = jsonObject.getJSONArray("results");
+                List<Films> filmsList = new ArrayList<>();
+
+                for (int i = 0 ; i< jsonArray.length(); i++){
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    Films movie = new Films();
+
+                    movie.setId(Integer.parseInt(jsonObject1.getString("id")));
+                    movie.setTitle (jsonObject1.getString("title"));
+                    movie.setPoster_path (jsonObject1.getString("poster_path"));
+                    movie.setImageUrl("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+                    movie.setSynopsis(jsonObject1.getString("overview"));
+                    movie.setIs_favourite(false);
+
+                    filmsList.add(movie);
+                }
+                putDataIntoGridView(filmsList);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void putDataIntoGridView(List<Films> filmList){
+
+    // Agrega algunas películas a la lista de películas
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("filterFilms", (ArrayList<? extends Parcelable>) filmList);
+
+        HomeFragment fragmentB = new HomeFragment();
+        fragmentB.setArguments(bundle);
+        getParentFragmentManager().beginTransaction().replace(R.id.container_main,fragmentB ).commit();
+    }
 
     private void initGenerSpinner() {
-        GetGeneres recomendedFilms = new GetGeneres();
+        GetGeneres getGeneres = new GetGeneres();
         Executor executor = Executors.newSingleThreadExecutor();
-        recomendedFilms.executeOnExecutor(executor,"https://api.themoviedb.org/3/genre/movie/list?api_key=32032564978a1c288fa5874397c2a0bf&language=es-ES");
+        getGeneres.executeOnExecutor(executor,Constantes.URL_GENRES);
     }
 
     public  class GetGeneres extends AsyncTask<String,String,String> {

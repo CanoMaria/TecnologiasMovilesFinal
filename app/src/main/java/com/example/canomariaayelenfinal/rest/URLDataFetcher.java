@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui;
+package com.example.canomariaayelenfinal.rest;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

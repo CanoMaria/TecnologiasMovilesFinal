@@ -1,4 +1,4 @@
-package com.example.canomariaayelenfinal.ui;
+package com.example.canomariaayelenfinal.business;
 
 
 import android.content.Intent;
@@ -9,11 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.canomariaayelenfinal.R;
-import com.example.canomariaayelenfinal.ui.Database.UserDAO;
-import com.example.canomariaayelenfinal.ui.Films.DesciptionActivity;
+import com.example.canomariaayelenfinal.DAO.UserDAO;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
